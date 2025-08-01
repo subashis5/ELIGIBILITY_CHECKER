@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eligibility Checker</title>
+  <style>
+    * {
+      font-family: cursive;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-image: url("7459333.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 40px;
+      border-radius: 15px;
+      text-align: center;
+      width: 80%;
+      max-width: 600px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .container h1 {
+      margin-bottom: 10px;
+    }
+
+    .container h2 {
+      margin-bottom: 20px;
+    }
+
+    p {
+      margin: 15px 0;
+      font-size: 18px;
+    }
+
+    input[type="text"], select {
+      padding: 10px;
+      width: 60%;
+      max-width: 300px;
+      border-radius: 5px;
+      border: 1px solid #999;
+      margin-top: 10px;
+    }
+
+    button {
+      margin: 10px 5px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .btn1 {
+      background-color: green;
+      color: white;
+    }
+
+    .btn2 {
+      background-color: orange;
+      color: white;
+    }
+
+    .btn3 {
+      background-color: crimson;
+      color: white;
+    }
+
+    h3, h4, ul {
+      margin-top: 20px;
+    }
+
+    ul {
+      list-style-type: square;
+      text-align: left;
+      margin: 0 auto;
+      width: fit-content;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Eligibility Checker</h1>
+    <hr />
+    <h2>Enter Your Details:</h2>
+    <p>
+      Enter your Age:
+      <br />
+      <input type="text" id="age" placeholder="Write Your Age" />
+    </p>
+    <p>
+      What do you want to check?
+      <br />
+      <select id="option">
+        <option value="">-- Select an option --</option>
+        <option value="drive">Drive</option>
+        <option value="vote">Vote</option>
+        <option value="drink">Drink</option>
+        <option value="marriage">Marriage</option>
+        <option value="retirements">Retirement</option>
+      </select>
+    </p>
+    <button onclick="check()" class="btn1">Check Eligibility</button>
+    <button onclick="showhistory()" class="btn2">Show History</button>
+    <button onclick="reset()" class="btn3">Reset</button>
+
+    <h3 id="result"></h3>
+    <div id="history"></div>
+  </div>
+
+  <script>
+    let historyList = [];
+
+    function check() {
+      let age = document.getElementById("age").value;
+      let option = document.getElementById("option").value;
+      let result;
+
+      if (!age || !option) {
+        alert("Please enter age and select an option.");
+        return;
+      }
+
+      if (option === "drive") {
+        result = age >= 16 ? "✅ You are Eligible to Drive" : "❌ You are not Eligible to Drive";
+      } else if (option === "vote") {
+        result = age >= 18 ? "✅ You are Eligible to Vote" : "❌ You are not Eligible to Vote";
+      } else if (option === "drink") {
+        result = age >= 21 ? "✅ You are Eligible to Drink" : "❌ You are not Eligible to Drink";
+      } else if (option === "marriage") {
+        result = age >= 25 ? "✅ You are Eligible to Marry" : "❌ You are not Eligible to Marry";
+      } else if (option === "retirements") {
+        result = age >= 60 ? "✅ You are Eligible to Retire" : "❌ You are not Eligible to Retire";
+      }
+
+      const message = `🧓 Age: ${age}, Check: ${option}, Result: ${result}`;
+      historyList.push(message);
+      document.getElementById("result").innerText = result;
+    }
+
+    function showhistory() {
+      let historyHTML = "<h4>📜 Past Eligibility Checks:</h4><ul>";
+      historyList.forEach(item => {
+        historyHTML += `<li>${item}</li>`;
+      });
+      historyHTML += "</ul>";
+      document.getElementById("history").innerHTML = historyHTML;
+    }
+
+    function reset() {
+      document.getElementById("age").value = "";
+      document.getElementById("option").value = "";
+      document.getElementById("result").innerText = "";
+      document.getElementById("history").innerHTML = "";
+      historyList = [];
+    }
+  </script>
+  
+</body>
+</html>
